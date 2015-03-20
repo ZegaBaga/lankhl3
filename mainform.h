@@ -64,6 +64,8 @@ __published:	// IDE-managed Components
 	void __fastcall TreeView2DragOver(TObject *Sender, TObject *Source, int X, int Y,
           TDragState State, bool &Accept);
 	void __fastcall TreeView2DragDrop(TObject *Sender, TObject *Source, int X, int Y);
+	void __fastcall N8Click(TObject *Sender);
+	void __fastcall N7Click(TObject *Sender);
 
 
 

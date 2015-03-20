@@ -368,7 +368,7 @@ void __fastcall TForm1::TreeView1Click(TObject *Sender)
 	   start=OutputDiscription(start+1,"Описание: ",gt->comm,clMaroon);
 
 	}
-    LoadObjects();
+	LoadObjects();
 }
 //---------------------------------------------------------------------------
 
@@ -452,12 +452,48 @@ void __fastcall TForm1::TreeView1DragOver(TObject *Sender, TObject *Source, int 
 void __fastcall TForm1::TreeView1DragDrop(TObject *Sender, TObject *Source, int X,
 		  int Y)
 {
-	if (Source != (TObject*)TreeView1 || TreeView1->Selected == NULL)
+
+	if ( TreeView1->Selected == NULL)
 	{
 
-		return;
+		//return;
 
 	}
+	if(Source == (TObject*)TreeView2)
+	{
+		THitTests HT = TreeView1->GetHitTestInfoAt(X, Y);
+		TNodeAttachMode AttachMode;
+		TTreeNode *pItem = TreeView1->GetNodeAt(X, Y);
+		//groopid=((tgroops*)pItem->Data)->id;
+		//if(pItem==TreeView1->Selected) return;
+		tgroops* grnew;//=(TDataTV*)pItem->Data;
+		telements* grold=(telements*)TreeView2->Selected->Data;
+
+		if (HT.Contains(htOnItem) || HT.Contains(htOnIcon))
+		{
+			AttachMode = naAddChild;
+			grnew=(tgroops*)pItem->Data;
+			grold->groupid =grnew->id;
+		}
+		else if (HT.Contains(htNowhere))
+		{
+			AttachMode = naAdd;
+			grold->groupid = "";
+		}
+		else if (HT.Contains(htOnIndent))
+		{
+			AttachMode = naInsert;
+			grnew=(tgroops*)pItem->Data;
+			grold->groupid =grnew->parentid;
+		}
+		else
+			return;
+
+		//TreeView2->Selected->MoveTo(pItem, AttachMode);
+		grold->Save(ADOQuery1);
+		LoadObjects();
+		//RindexObjects();
+    }
 	else
 	{
 		THitTests HT = TreeView1->GetHitTestInfoAt(X, Y);
@@ -524,7 +560,7 @@ void __fastcall TForm1::LoadObjects()
    TreeView2->Items->Clear();
    ADOQuery1->Close();
    ADOQuery1->SQL->Clear();
-   ADOQuery1->SQL->Add("select * from elements where groupid='"+parentid+"' order by cod");
+   ADOQuery1->SQL->Add("select elements.* from elements where elements.groupid='"+parentid+"' order by elements.cod");
    ADOQuery1->Open();
    ADOQuery1->First();
    while(!ADOQuery1->Eof)
@@ -535,6 +571,7 @@ void __fastcall TForm1::LoadObjects()
 		   elm->parentid=ADOQuery1->FieldByName("parentid")->AsAnsiString;
 		   elm->chaildid=ADOQuery1->FieldByName("chaildid")->AsAnsiString;
 		   elm->groupid=parentid;
+		   elm->name=ADOQuery1->FieldByName("fname")->AsAnsiString;
 		   if(!elm->parentid.IsEmpty())
 		   {
 			   int k=SerechNodeObject(elm->parentid);
@@ -650,6 +687,52 @@ void __fastcall TForm1::TreeView2DragDrop(TObject *Sender, TObject *Source, int 
 		grold->Save(ADOQuery1);
 
 		RindexObjects();
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N8Click(TObject *Sender)
+{
+	TTreeNode *Node1=TreeView2->Selected;
+	if(Node1==NULL) return;
+	if (Node1->Count > 0)
+	{
+			ShowMessage("Сначала удалите или перенесите подчененные элементы");
+			return;
+	}
+	telements *gr=(telements *)Node1->Data;
+	UnicodeString Ask = "Удалить " + gr->name + "?";
+	UnicodeString dell = "Удаление";
+	int Q = Application->MessageBox(Ask.w_str(), dell.w_str(), MB_YESNO);
+	if (Q == 6)
+	{
+			Node1->Data = NULL;
+			gr->Delete(ADOQuery1);
+			delete gr;
+			TreeView2->Items->Delete(Node1);
+	}
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N7Click(TObject *Sender)
+{
+	if(TreeView2->Selected==NULL) return;
+
+
+	telements *elm=(telements*)TreeView2->Selected->Data;
+	Form3->EditFullName->Text=elm->name;
+
+	if(Form3->ShowModal()==mrOk)
+	{
+		elm->name=Form3->EditFullName->Text;
+        TreeView2->Selected->Text=elm->name;
+		elm->Save(ADOQuery1);
+		//Node1->Data=(void*)elm;
+		//Node1->Selected=true;
+		//Node1->ImageIndex=elm->tip;
+
+
 	}
 }
 //---------------------------------------------------------------------------

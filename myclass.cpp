@@ -23,12 +23,13 @@ void __fastcall telements::Save(TADOQuery *ado)
 		query+=",chaildid='"+chaildid+"'";
 		query+=",groupid='"+groupid+"'";
 		query+=",tip="+IntToStr(tip)+"";
+		query+=",fname='"+name+"'";
 		query+=" where id='"+id+"'";
 	}
 	else
 	{
-	 query="insert into elements (id,parentid,chaildid,groupid,tip)";
-	 query+=" values('"+id+"','"+parentid+"','"+chaildid+"','"+groupid+"',"+IntToStr(tip)+")";
+	 query="insert into elements (id,parentid,chaildid,groupid,tip,fname)";
+	 query+=" values('"+id+"','"+parentid+"','"+chaildid+"','"+groupid+"',"+IntToStr(tip)+",'"+name+"')";
 	 //",'"+iconpath+"',"+IntToStr(tipgroop);
 	 //query+=",'"+fio+"','"+phone+"','"+email+"','"+adress+"','"+ip+"','"+fullname+"')" ;
 	}
