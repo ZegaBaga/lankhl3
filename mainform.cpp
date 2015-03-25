@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <vector>
 #pragma hdrstop
 
 #include "mainform.h"
@@ -120,6 +121,26 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 	Height=sys->height;
 	delete sys;
 	delete abov;
+
+	TADOQuery *ado=Form1->ADOQuery1;
+	ado->SQL->Clear();
+	UnicodeString query0="select * from func";
+	ado->SQL->Add(query0);
+	ado->Open();
+	ado->First();
+	while(!ado->Eof)
+	{
+				   func *fn=new func;
+				   UnicodeString cod=ado->FieldByName("shname")->AsAnsiString;
+				   UnicodeString capt=ado->FieldByName("fname")->AsAnsiString;
+
+				   fn->shname=cod;
+				   fn->name=capt;
+				   funclist.push_back(fn);
+				   ado->Next();
+	}
+    ado->Close();
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::SQLChange(UnicodeString query0)
@@ -292,9 +313,10 @@ void __fastcall TForm1::TreeView1MouseDown(TObject *Sender, TMouseButton Button,
 		  int X, int Y)
 {
 
+	TreeView1->Selected = TreeView1->GetNodeAt(X, Y);
 	if (Button == mbRight)
 	{
-		TreeView1->Selected = TreeView1->GetNodeAt(X, Y);
+
 		PMGroops->Popup(TreeView1->Left + Left + X,TreeView1->Top + Top + Y);
 
 	}
@@ -320,11 +342,30 @@ int __fastcall TForm1::OutputDiscription(int start,UnicodeString title,UnicodeSt
 		RichEdit1->SelAttributes->Color=color;
 		return start+ltitl+ltext;
 }
+int __fastcall TForm1::OutputDiscription2(int start,UnicodeString title,UnicodeString text,TColor color)
+{
+
+		//UnicodeString alltext=RichEdit1->Lines->Text;
+		int ltext=text.Length();
+		int ltitl=title.Length();
+		RichEdit2->SelStart=start;
+		RichEdit2->SelLength=ltitl;
+		RichEdit2->SelAttributes->Style=TFontStyles() << fsBold << fsUnderline;
+		RichEdit2->SelAttributes->Color=color;
+		return start+ltitl+ltext;
+}
+
 void __fastcall TForm1::TreeView1Click(TObject *Sender)
 {
 	RichEdit1->Lines->Clear();
-	if(!TreeView1->Selected) return;
-	tgroops *gt=((tgroops*)TreeView1->Selected->Data);
+	tgroops *gt;
+	if(!TreeView1->Selected)
+	{
+	  gt=new tgroops();
+	  gt->fullname="Вне групп";
+	}
+	else
+	  gt=((tgroops*)TreeView1->Selected->Data);
 	int tipgroop=gt->tipgroop;
 	if(tipgroop==0)
 	{
@@ -369,6 +410,78 @@ void __fastcall TForm1::TreeView1Click(TObject *Sender)
 
 	}
 	LoadObjects();
+}
+UnicodeString __fastcall TForm1::GetFunctionLong(UnicodeString str)
+{
+		UnicodeString strret="";
+		for(int i=0;i<Form1->funclist.size();i++)
+			{
+
+				   UnicodeString cod=Form1->funclist[i]->shname;
+				   UnicodeString capt=Form1->funclist[i]->name;
+				   if(str.Pos(cod+";")>0)
+						strret+=strret.IsEmpty()?capt:", "+capt;
+
+
+			}
+		   return strret;
+}
+
+void __fastcall TForm1::TreeView2Click(TObject *Sender)
+{
+	RichEdit2->Lines->Clear();
+	if(!TreeView2->Selected) return;
+		telements *elm=((telements*)TreeView2->Selected->Data);
+	int tip=elm->tip;
+	UnicodeString idchaild=elm->chaildid;
+	if(tip==0)
+	{
+	   tkomp *kmp=new tkomp();
+	   kmp->id=idchaild;
+	   kmp->Load(ADOQuery1);
+	   UnicodeString naz=GetFunctionLong(kmp->naz);
+	   RichEdit2->Lines->Add("тип: АРМ");
+	   RichEdit2->Lines->Add("Сетевое имя: "+kmp->nname);
+	   RichEdit2->Lines->Add("IP: "+kmp->ip);
+	   RichEdit2->Lines->Add("Назначение: "+naz);
+	   TColor orange=RGB(179,89,0);
+	   int start=OutputDiscription2(0,"тип: ","АРМ",orange);
+	   start=OutputDiscription2(start+1,"Сетевое имя: ",kmp->nname,orange);
+	   start=OutputDiscription2(start+1,"IP: ",kmp->ip,orange);
+
+	   start=OutputDiscription2(start+1,"Назначение: ",naz,orange);
+	   //start=OutputDiscription(start+1,"Email: ",gt->email,clMaroon);
+	   //start=OutputDiscription(start+1,"IP: ",gt->ip,clMaroon);
+	   //start=OutputDiscription(start+1,"Описание: ",gt->comm,clMaroon);
+	   delete kmp;
+	}
+	if(tip==1)
+	{
+	   tkomp *kmp=new tkomp();
+	   kmp->id=idchaild;
+	   kmp->Load(ADOQuery1);
+	   UnicodeString naz=GetFunctionLong(kmp->naz);
+	   RichEdit2->Lines->Add("тип: Сервер");
+	   RichEdit2->Lines->Add("Сетевое имя: "+kmp->nname);
+	   RichEdit2->Lines->Add("IP: "+kmp->ip);
+	   RichEdit2->Lines->Add("Назначение: "+naz);
+	   //RichEdit1->Lines->Add("Описание: "+elm->com);
+	   TColor orange=RGB(179,89,0);
+	   int start=OutputDiscription2(0,"тип: ","Сервер",orange);
+	   start=OutputDiscription2(start+1,"Сетевое имя: ",kmp->nname,orange);
+	   start=OutputDiscription2(start+1,"IP: ",kmp->ip,orange);
+	   start=OutputDiscription2(start+1,"Назначение: ",naz,orange);
+	   //start=OutputDiscription(start+1,"Email: ",gt->email,clMaroon);
+	   //start=OutputDiscription(start+1,"IP: ",gt->ip,clMaroon);
+	   //start=OutputDiscription(start+1,"Описание: ",gt->comm,clMaroon);
+	   delete kmp;
+	}
+	if(tip==2)
+	{
+
+		//
+	}
+
 }
 //---------------------------------------------------------------------------
 
@@ -474,11 +587,13 @@ void __fastcall TForm1::TreeView1DragDrop(TObject *Sender, TObject *Source, int 
 			AttachMode = naAddChild;
 			grnew=(tgroops*)pItem->Data;
 			grold->groupid =grnew->id;
+			grold->parentid="";
 		}
 		else if (HT.Contains(htNowhere))
 		{
 			AttachMode = naAdd;
 			grold->groupid = "";
+			grold->parentid="";
 		}
 		else if (HT.Contains(htOnIndent))
 		{
@@ -550,12 +665,28 @@ void __fastcall TForm1::SpeedButton1Click(TObject *Sender)
 	//Form1->Width=Width+265;
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::SetIconsOjects()
+{
+	TTreeNode *Node1 = TreeView2->Items->GetFirstNode();
+	while (Node1)
+	{
+
+		int tip = ((telements*)Node1->Data)->tip;
+
+		Node1->ImageIndex = tip;
+		Node1->StateIndex = tip;
+		Node1->SelectedIndex = tip;
+		Node1 = Node1->GetNext();
+	}
+}
 void __fastcall TForm1::LoadObjects()
 {
 	TTreeNode *Node1=TreeView1->Selected;
 	UnicodeString parentid="";
 	if(Node1!=NULL)
 		parentid=((tgroops*)Node1->Data)->id;
+	else
+		parentid="";
 
    TreeView2->Items->Clear();
    ADOQuery1->Close();
@@ -586,9 +717,13 @@ void __fastcall TForm1::LoadObjects()
 		   ADOQuery1->Next();
    }
    ADOQuery1->Close();
-   if(TreeView2->Items->Count>0) TreeView2->Selected=TreeView2->Items->Item[0];
+   if(TreeView2->Items->Count>0)
+   {
+	 TreeView2->Selected=TreeView2->Items->Item[0];
+	 TreeView2Click(Form1);
+   }
    //TreeView1Click(Form1);
-   //SetIcons();
+   SetIconsOjects();
 }
 void __fastcall TForm1::N9Click(TObject *Sender)
 {
@@ -597,13 +732,23 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 		groopid=((tgroops*)TreeView1->Selected->Data)->id;
 	bool newnew=TreeView2->Selected!=NULL?false:true;
 	Form3->EditFullName->Text="";
+	Form3->EditIP->Text="";
+	Form3->EditName->Text="";
 
+	int tip=0;
+	if(((TMenuItem*)Sender)->Name=="N10") tip=1;
+	Form3->Caption=tip?"Новый сервер":"Новый компьютер";
+	MenuIcon->GetIcon(tip,Form3->Icon);
+	//Form3->PageControl1->ActivePage=Form3->Komp;
+	Form3->Left=Left+TreeView2->Left-10;
+	Form3->Top=Top;
+	Form3->functions="";
 	if(Form3->ShowModal()==mrOk)
 	{
 		telements *elm=new telements();
 		elm->groupid=groopid;
 		elm->chaildid="";
-		elm->tip=0;
+		elm->tip=tip;
 		elm->name=Form3->EditFullName->Text;
 		TTreeNode *Node1;
 		if(!newnew)
@@ -616,7 +761,16 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 				Node1 = TreeView2->Items->Add(NULL, elm->name);
 				elm->parentid="";
 		}
+
+		tkomp *kmp=new tkomp();
+		kmp->tip=elm->tip;
+		kmp->ip=Form3->EditIP->Text;
+		kmp->nname=Form3->EditName->Text;
+		kmp->naz="";
+		kmp->Save(ADOQuery1);
+		elm->chaildid=kmp->id;
 		elm->Save(ADOQuery1);
+		delete kmp;
 		Node1->Data=(void*)elm;
 		Node1->Selected=true;
 		Node1->ImageIndex=elm->tip;
@@ -708,6 +862,13 @@ void __fastcall TForm1::N8Click(TObject *Sender)
 	{
 			Node1->Data = NULL;
 			gr->Delete(ADOQuery1);
+			if(gr->tip<2)
+			{
+				tkomp *kmp=new tkomp();
+				kmp->id=gr->chaildid;
+				kmp->Delete(ADOQuery1);
+				delete kmp;
+			}
 			delete gr;
 			TreeView2->Items->Delete(Node1);
 	}
@@ -721,19 +882,39 @@ void __fastcall TForm1::N7Click(TObject *Sender)
 
 
 	telements *elm=(telements*)TreeView2->Selected->Data;
-	Form3->EditFullName->Text=elm->name;
-
-	if(Form3->ShowModal()==mrOk)
+	if(elm->tip<2)
 	{
-		elm->name=Form3->EditFullName->Text;
-        TreeView2->Selected->Text=elm->name;
-		elm->Save(ADOQuery1);
-		//Node1->Data=(void*)elm;
-		//Node1->Selected=true;
-		//Node1->ImageIndex=elm->tip;
+		int tip=elm->tip;
+		Form3->Caption=tip?"Cервер "+elm->name:"Компьютер "+elm->name;
+		MenuIcon->GetIcon(tip+5,Form3->Icon);
 
-
+		tkomp *kmp=new tkomp();
+		kmp->id=elm->chaildid;
+		kmp->Load(ADOQuery1);
+		Form3->EditFullName->Text=elm->name;
+		Form3->EditIP->Text=kmp->ip;
+		Form3->EditName->Text=kmp->nname;
+		Form3->Left=Left+TreeView2->Left-10;
+		Form3->Top=Top;
+		Form3->functions=kmp->naz;
+		if(Form3->ShowModal()==mrOk)
+		{
+			elm->name=Form3->EditFullName->Text;
+			TreeView2->Selected->Text=elm->name;
+			kmp->ip=Form3->EditIP->Text;
+			kmp->nname=Form3->EditName->Text;
+			elm->Save(ADOQuery1);
+			kmp->naz=Form3->functions;
+			kmp->Save(ADOQuery1);
+			delete kmp;
+		}
 	}
 }
 //---------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------
+
+
+
 

@@ -14,8 +14,11 @@
 #include <Data.Win.ADODB.hpp>
 #include <Vcl.Menus.hpp>
 #include <Vcl.Buttons.hpp>
-
+#include <Vcl.AppEvnts.hpp>
+#include "myclass.h"
+#include <vector>
 //---------------------------------------------------------------------------
+
 class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
@@ -45,6 +48,7 @@ __published:	// IDE-managed Components
 	TMenuItem *N10;
 	TMenuItem *N11;
 	TMenuItem *N12;
+	TImageList *MenuIcon;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall N1Click(TObject *Sender);
 	void __fastcall TreeView1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -66,6 +70,8 @@ __published:	// IDE-managed Components
 	void __fastcall TreeView2DragDrop(TObject *Sender, TObject *Source, int X, int Y);
 	void __fastcall N8Click(TObject *Sender);
 	void __fastcall N7Click(TObject *Sender);
+	void __fastcall TreeView2Click(TObject *Sender);
+
 
 
 
@@ -80,8 +86,12 @@ public:		// User declarations
 	void __fastcall VisiblControlGroop(int tipgroop);
 	void __fastcall SetIcons();
 	int __fastcall OutputDiscription(int start,UnicodeString title,UnicodeString text,TColor color);
+	int __fastcall OutputDiscription2(int start,UnicodeString title,UnicodeString text,TColor color);
 	void __fastcall LoadObjects();
 	void __fastcall RindexObjects();
+	void __fastcall SetIconsOjects();
+	std::vector <func*> funclist;
+	UnicodeString __fastcall GetFunctionLong(UnicodeString str);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;

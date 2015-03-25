@@ -3,6 +3,66 @@
 #pragma hdrstop
 
 #include "myclass.h"
+tkomp::tkomp()
+{
+	randomize();
+	id ="KM"+IntToStr(100000 + random(899999));
+}
+void __fastcall tkomp::Load(TADOQuery *ado)
+{
+   ado->Close();
+   ado->SQL->Clear();
+   ado->SQL->Add("select * from komp where id='"+id+"'");
+   ado->Open();
+   ado->First();
+   while(!ado->Eof)
+   {
+		   tip=ado->FieldByName("tip")->AsInteger;
+		   ip=ado->FieldByName("ip")->AsAnsiString;
+		   naz=ado->FieldByName("naz")->AsAnsiString;
+		   nname=ado->FieldByName("nname")->AsAnsiString;
+		   ado->Next();
+   }
+   ado->Close();
+}
+void __fastcall tkomp::Save(TADOQuery *ado)
+{
+	ado->Close();
+	UnicodeString query="select id from komp where id='"+id+"'";
+	ado->SQL->Clear();
+	ado->SQL->Add(query);
+	ado->Open();
+	int count=ado->RecordCount;
+	ado->Close();
+	if(count)
+	{
+		query="update komp set ip='"+ip+"'";
+		query+=",nname='"+nname+"'";
+		query+=",naz='"+naz+"'";
+		query+=",tip="+IntToStr(tip)+"";
+		//query+=",fname='"+name+"'";
+		query+=" where id='"+id+"'";
+	}
+	else
+	{
+	 query="insert into komp (id,ip,nname,naz,tip)";
+	 query+=" values('"+id+"','"+ip+"','"+nname+"','"+naz+"',"+IntToStr(tip)+")";
+	 //",'"+iconpath+"',"+IntToStr(tipgroop);
+	 //query+=",'"+fio+"','"+phone+"','"+email+"','"+adress+"','"+ip+"','"+fullname+"')" ;
+	}
+	ado->SQL->Clear();
+	ado->SQL->Add(query);
+	ado->ExecSQL();
+}
+void __fastcall tkomp::Delete(TADOQuery *ado)
+{
+	ado->Close();
+	UnicodeString query="delete from komp where id='"+id+"'";
+	ado->SQL->Clear();
+	ado->SQL->Add(query);
+	ado->ExecSQL();
+}
+
 telements::telements()
 {
 	randomize();

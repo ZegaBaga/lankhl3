@@ -1,6 +1,7 @@
 object Form2: TForm2
   Left = 429
   Top = 387
+  ActiveControl = Edit1
   BorderStyle = bsDialog
   ClientHeight = 189
   ClientWidth = 448

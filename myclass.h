@@ -7,7 +7,24 @@
 #include <StdCtrls.hpp>
 #include <ADODB.hpp>
 #include <DB.hpp>
+#include <vector>
 //---------------------------------------------------------------------------
+struct QuikList
+{
+	UnicodeString Name;
+	UnicodeString Path;
+	UnicodeString Param;
+	UnicodeString Icon;
+	int Cod;
+	bool Check;
+
+};
+struct func
+{
+	UnicodeString shname;
+	UnicodeString name;
+};
+
 struct tsys
 {
 	int top,left,width,height;
@@ -36,6 +53,21 @@ class telements
 
 		int tip;
 		UnicodeString id,parentid,chaildid,groupid,name;
+};
+class tkomp
+{
+	public:
+		tkomp();
+		void __fastcall Load(TADOQuery *ado);
+		void __fastcall Save(TADOQuery *ado);
+		void __fastcall Delete(TADOQuery *ado);
+
+		int tip;
+		UnicodeString id,ip,naz,nname;
+		UnicodeString rport,rlogin,rpass,rdomen,rwid;
+		std::vector<QuikList> quicklist;
+
+
 };
 UnicodeString GetShortPath(UnicodeString way);
 UnicodeString GetLongName(UnicodeString way);
