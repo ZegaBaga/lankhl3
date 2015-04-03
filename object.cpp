@@ -8,6 +8,7 @@
 #include "mainform.h"
 #include "MyClass.h"
 #include "netapi.h"
+#include "rvia.h"
 
 // ---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -246,11 +247,6 @@ void __fastcall TForm3::SpeedButton3Click(TObject *Sender) {
 }
 // ---------------------------------------------------------------------------
 
-void __fastcall TForm3::CheckBox2Click(TObject *Sender) {
-	if (CheckBox2->Checked)
-		CheckBox1->Checked = true;
-}
-// ---------------------------------------------------------------------------
 
 void __fastcall TForm3::FormShow(TObject *Sender)
 {
@@ -289,53 +285,67 @@ void __fastcall TForm3::ListBox1ClickCheck(TObject *Sender)
 
 void __fastcall TForm3::WidEditRightButtonClick(TObject *Sender)
 {
-   /*	TTreeNode *Node1;
-	Node1 = Form1->TreeView1->Selected;
-	Form1->SaveExpend();
+	TTreeNode *Node1;
+	Node1 = Form1->TreeView2->Selected;
+	//Form1->SaveExpend();
 	if(Node1!=NULL)
 	{
-		FormW->Pid=((TDataTV *)Node1->Data)->id;
-		FormW->id=Wid;
+		telements *elm=(telements *)Node1->Data;
+		if(Form1->TreeView1->Selected!=NULL)
+		{
+			tgroops *gr=(tgroops*)Form1->TreeView1->Selected->Data;
+			rViaForm->groopid=gr->id;
+		}
+		else
+           rViaForm->groopid="";
+
+		rViaForm->elementid=elm->id;
+		rViaForm->kompid=elm->chaildid;
 	}
 	else
 	{
-		FormW->Pid="";
-		FormW->id=Wid;
+		rViaForm->groopid=((tgroops*)Form1->TreeView1->Selected)->id;
+		rViaForm->elementid="";
+		rViaForm->kompid="";
 	}
-	FormW->FormStyle = FormStyle;
+	rViaForm->wid=Wid;
+	rViaForm->FormStyle = FormStyle;
+	rViaForm->Height=Form1->Height;
+	rViaForm->Left=Form1->Left-20;
+	rViaForm->Top=Form1->Top-20;
 
-	if(FormW->ShowModal()==mrOk)
+	if(rViaForm->ShowModal()==mrOk)
 	{
 
 
-		Wid=FormW->id;
+		Wid=rViaForm->wid;
 		ShowWid();
-	}     */
+	}
 }
 //---------------------------------------------------------------------------
 void TForm3::ShowWid()
 {
 
-	 /*	if(Wid.IsEmpty())
+		if(Wid.IsEmpty())
 		{
 			WidEdit->Text="";//dt->Psevd.IsEmpty()?(dt->Name+"("+dt->IP+")"):dt->Psevd;
 			Label5->Caption="IP: ";//+dt->IP;
-			Label6->Caption="Имя: ";//+dt->Name;
+			//Label6->Caption="Имя: ";//+dt->Name;
 			Label11->Caption="Порт: ";//+IntToStr(dt->Port);
-			Label12->Caption="Логин: ";//+dt->Login;
+			//Label12->Caption="Логин: ";//+dt->Login;
 		}
 		else
 		{
-			TDataTV *dt=new TDataTV();
-			dt->id=Wid;
-			dt->LoadINI(Form1->ADOQuery1);
-			WidEdit->Text=dt->Psevd.IsEmpty()?(dt->Name+"("+dt->IP+")"):dt->Psevd;
-			Label5->Caption="IP: "+dt->IP;
-			Label6->Caption="Имя: "+dt->Name;
-			Label11->Caption="Порт: "+IntToStr(dt->Port);
-			Label12->Caption="Логин: "+dt->Login;
-			delete dt;
-		}      */
+			tkomp *kmp=new tkomp();
+			kmp->id=Wid;
+			kmp->Load(Form1->ADOQuery1);
+			WidEdit->Text=kmp->fname.IsEmpty()?kmp->nname+"("+kmp->ip+")":kmp->fname; //dt->Psevd.IsEmpty()?(dt->Name+"("+dt->IP+")"):dt->Psevd;
+			Label5->Caption="IP: "+kmp->ip;
+			//Label6->Caption="Имя: "+dt->Name;
+			Label11->Caption="Порт: "+kmp->rport;
+		   //	Label12->Caption="Логин: "+dt->Login;
+			delete kmp;
+		}
 }
 
 
@@ -348,21 +358,21 @@ void __fastcall TForm3::WidEditLeftButtonClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm3::Edit3Exit(TObject *Sender)
+void __fastcall TForm3::EditPortExit(TObject *Sender)
 {
 	try
 	{
-		int mumtr=StrToInt(Edit3->Text);
+		int mumtr=StrToInt(EditPort->Text);
 		if(mumtr<0 || mumtr>65536)
 		{
 			ShowMessage("Не верный порт.");
-			Form3->ActiveControl=Edit3;
+			Form3->ActiveControl=EditPort;
 		}
 
 	}
 	catch (Exception &exception) {
 		ShowMessage("Не верный порт.");
-		Form3->ActiveControl=Edit3;
+		Form3->ActiveControl=EditPort;
 	}
 }
 //---------------------------------------------------------------------------

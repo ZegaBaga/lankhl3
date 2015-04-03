@@ -17,6 +17,7 @@
 #include <Vcl.AppEvnts.hpp>
 #include "myclass.h"
 #include <vector>
+extern const int CountImage;
 //---------------------------------------------------------------------------
 
 class TForm1 : public TForm
@@ -42,8 +43,8 @@ __published:	// IDE-managed Components
 	TRichEdit *RichEdit2;
 	TPopupMenu *PMObjects;
 	TMenuItem *N6;
-	TMenuItem *N7;
-	TMenuItem *N8;
+	TMenuItem *NEditObject;
+	TMenuItem *NDelObject;
 	TMenuItem *N9;
 	TMenuItem *N10;
 	TMenuItem *N11;
@@ -68,8 +69,8 @@ __published:	// IDE-managed Components
 	void __fastcall TreeView2DragOver(TObject *Sender, TObject *Source, int X, int Y,
           TDragState State, bool &Accept);
 	void __fastcall TreeView2DragDrop(TObject *Sender, TObject *Source, int X, int Y);
-	void __fastcall N8Click(TObject *Sender);
-	void __fastcall N7Click(TObject *Sender);
+	void __fastcall NDelObjectClick(TObject *Sender);
+	void __fastcall NEditObjectClick(TObject *Sender);
 	void __fastcall TreeView2Click(TObject *Sender);
 
 

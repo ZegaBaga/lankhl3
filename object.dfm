@@ -183,7 +183,7 @@ object Form3: TForm3
         ShowHint = True
         TabOrder = 2
       end
-      object CheckBox2: TCheckBox
+      object CheckBoxNoPing: TCheckBox
         Left = 0
         Top = 95
         Width = 239
@@ -193,7 +193,6 @@ object Form3: TForm3
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
-        OnClick = CheckBox2Click
       end
       object Memo1: TMemo
         Left = 0
@@ -212,38 +211,38 @@ object Form3: TForm3
       Caption = 'RAdmin'
       ImageIndex = 2
       object Label3: TLabel
-        Left = 0
-        Top = 22
+        Left = 3
+        Top = 25
         Width = 25
         Height = 13
         Caption = #1055#1086#1088#1090
       end
       object Label8: TLabel
         Left = 87
-        Top = 21
+        Top = 24
         Width = 31
         Height = 13
         Caption = #1051#1086#1075#1080#1085
       end
       object Label9: TLabel
         Left = 81
-        Top = 43
+        Top = 46
         Width = 38
         Height = 13
         Caption = #1055#1072#1088#1086#1083#1100
       end
       object Label10: TLabel
         Left = 82
-        Top = 64
+        Top = 67
         Width = 35
         Height = 13
         Caption = #1044#1086#1084#1077#1085
       end
       object GroupBox1: TGroupBox
         Left = 0
-        Top = 88
+        Top = 107
         Width = 286
-        Height = 78
+        Height = 62
         Caption = #1055#1086#1076#1082#1083#1102#1095#1080#1090#1089#1103' '#1095#1077#1088#1077#1079
         TabOrder = 5
         object Label5: TLabel
@@ -253,26 +252,12 @@ object Form3: TForm3
           Height = 13
           Caption = 'Label5'
         end
-        object Label6: TLabel
-          Left = 3
-          Top = 62
-          Width = 32
-          Height = 13
-          Caption = 'Label6'
-        end
         object Label11: TLabel
           Left = 155
           Top = 43
           Width = 38
           Height = 13
           Caption = 'Label11'
-        end
-        object Label12: TLabel
-          Left = 155
-          Top = 62
-          Width = 38
-          Height = 13
-          Caption = 'Label12'
         end
         object WidEdit: TButtonedEdit
           Left = 3
@@ -300,59 +285,59 @@ object Form3: TForm3
           OnRightButtonClick = WidEditRightButtonClick
         end
       end
-      object CheckBox1: TCheckBox
-        Left = 0
-        Top = -1
+      object CheckBoxNoRadmin: TCheckBox
+        Left = 3
+        Top = 0
         Width = 137
         Height = 17
         Hint = #1055#1088#1080' '#1091#1089#1090#1072#1085#1086#1074#1083#1077#1085#1085#1086#1084' '#1092#1083#1072#1078#1082#1077' '#1085#1077' '#1073#1091#1076#1077#1090' '#1087#1088#1086#1074#1077#1088#1103#1090#1089#1103' '#1091#1082#1072#1079#1072#1085#1085#1099#1081' '#1087#1086#1088#1090
         Caption = 'RAdmin '#1085#1077' '#1091#1089#1090#1072#1085#1086#1074#1083#1077#1085
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 3
+        TabOrder = 6
       end
-      object Edit7: TEdit
+      object EditLogin: TEdit
         Left = 123
-        Top = 17
+        Top = 20
         Width = 158
         Height = 21
         TabOrder = 1
         Text = 'Andrey'
       end
-      object Edit8: TEdit
+      object EditPass: TEdit
         Left = 123
-        Top = 40
+        Top = 43
         Width = 158
         Height = 21
         PasswordChar = '*'
         TabOrder = 2
         Text = '87654321'
       end
-      object Edit9: TEdit
+      object EditDomen: TEdit
         Left = 123
-        Top = 62
+        Top = 65
         Width = 158
         Height = 21
-        TabOrder = 4
+        TabOrder = 3
       end
-      object Edit3: TEdit
+      object EditPort: TEdit
         Left = 35
-        Top = 17
+        Top = 20
         Width = 45
         Height = 21
         Alignment = taRightJustify
         MaxLength = 5
         TabOrder = 0
         Text = '4899'
-        OnExit = Edit3Exit
+        OnExit = EditPortExit
       end
-      object CBexip: TCheckBox
-        Left = 136
-        Top = -1
+      object CheckBoxViaExpIP: TCheckBox
+        Left = 3
+        Top = 84
         Width = 145
         Height = 17
         Caption = #1055#1086#1076#1082#1083'. '#1095#1077#1088#1077#1079' '#1074#1085#1077#1096#1085#1080#1081' IP'
-        TabOrder = 6
+        TabOrder = 4
       end
     end
     object TabSheet6: TTabSheet
@@ -877,12 +862,12 @@ object Form3: TForm3
   object OpenDialog1: TOpenDialog
     DefaultExt = '*.wav'
     Filter = #1047#1074#1091#1082#1086#1074#1086#1081' '#1092#1072#1081#1083' (*.wav)|*.wav'
-    Left = 144
-    Top = 116
+    Left = 36
+    Top = 208
   end
   object PopupMenu1: TPopupMenu
-    Left = 116
-    Top = 120
+    Left = 4
+    Top = 208
     object N1: TMenuItem
       Bitmap.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
@@ -978,10 +963,10 @@ object Form3: TForm3
     end
   end
   object ImageList1: TImageList
-    Left = 212
-    Top = 92
+    Left = 56
+    Top = 204
     Bitmap = {
-      494C0101060028003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106002800400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000009A9A9AFFD1D1D1FFE1E1E1FFE1E1
       E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFBCBCE5FF6969
@@ -1254,12 +1239,12 @@ object Form3: TForm3
   end
   object IdIPAddrMon1: TIdIPAddrMon
     Active = False
-    Left = 202
-    Top = 119
+    Left = 94
+    Top = 203
   end
   object PopupMenu2: TPopupMenu
-    Left = 170
-    Top = 115
+    Left = 66
+    Top = 207
     object HTTP1: TMenuItem
       Bitmap.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
@@ -1357,7 +1342,7 @@ object Form3: TForm3
   object ADOQuery1: TADOQuery
     Connection = Form1.ADOConnection1
     Parameters = <>
-    Left = 229
-    Top = 94
+    Left = 101
+    Top = 210
   end
 end

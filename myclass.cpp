@@ -21,6 +21,18 @@ void __fastcall tkomp::Load(TADOQuery *ado)
 		   ip=ado->FieldByName("ip")->AsAnsiString;
 		   naz=ado->FieldByName("naz")->AsAnsiString;
 		   nname=ado->FieldByName("nname")->AsAnsiString;
+
+		   rport=ado->FieldByName("rport")->AsAnsiString;
+		   rlogin=ado->FieldByName("rlogin")->AsAnsiString;
+		   rpass=ado->FieldByName("rpass")->AsAnsiString;
+		   rdomen=ado->FieldByName("rdomen")->AsAnsiString;
+
+		   noping=ado->FieldByName("noping")->AsInteger;
+		   noradmin=ado->FieldByName("noradmin")->AsInteger;
+		   viaexpip=ado->FieldByName("viaexpip")->AsInteger;
+		   rviaid=ado->FieldByName("rviaid")->AsAnsiString;
+		   fname=ado->FieldByName("fname")->AsAnsiString;
+
 		   ado->Next();
    }
    ado->Close();
@@ -38,15 +50,24 @@ void __fastcall tkomp::Save(TADOQuery *ado)
 	{
 		query="update komp set ip='"+ip+"'";
 		query+=",nname='"+nname+"'";
+		query+=",fname='"+fname+"'";
 		query+=",naz='"+naz+"'";
+		query+=",rport='"+rport+"'";
+		query+=",rlogin='"+rlogin+"'";
+		query+=",rpass='"+rpass+"'";
+		query+=",rdomen='"+rdomen+"'";
+		query+=",rviaid='"+rviaid+"'";
 		query+=",tip="+IntToStr(tip)+"";
+		query+=",noping="+IntToStr(noping)+"";
+		query+=",noradmin="+IntToStr(noradmin)+"";
+		query+=",viaexpip="+IntToStr(viaexpip)+"";
 		//query+=",fname='"+name+"'";
 		query+=" where id='"+id+"'";
 	}
 	else
 	{
-	 query="insert into komp (id,ip,nname,naz,tip)";
-	 query+=" values('"+id+"','"+ip+"','"+nname+"','"+naz+"',"+IntToStr(tip)+")";
+	 query="insert into komp (id,ip,nname,fname,naz,rport,rlogin,rpass,rdomen,rviaid,tip,noping,noradmin,viaexpip)";
+	 query+=" values('"+id+"','"+ip+"','"+nname+"','"+fname+"','"+naz+"','"+rport+"','"+rlogin+"','"+rpass+"','"+rdomen+"','"+rviaid+"',"+IntToStr(tip)+","+IntToStr(noping)+","+IntToStr(noradmin)+","+IntToStr(viaexpip)+")";
 	 //",'"+iconpath+"',"+IntToStr(tipgroop);
 	 //query+=",'"+fio+"','"+phone+"','"+email+"','"+adress+"','"+ip+"','"+fullname+"')" ;
 	}

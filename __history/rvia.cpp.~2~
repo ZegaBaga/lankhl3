@@ -1,0 +1,74 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "rvia.h"
+#include "myclass.h"
+#include "mainform.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TrViaForm *rViaForm;
+//---------------------------------------------------------------------------
+__fastcall TrViaForm::TrViaForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TrViaForm::FormShow(TObject *Sender)
+{
+	//UnicodeString pathbase=ExtractFilePath(Application->ExeName)+"base.mdb";
+	//ADOConnection1->ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source="+pathbase+";Persist Security Info=False";
+	LoadGroops();
+	TTreeNode *Node1 = TreeView1->Items->GetFirstNode();
+	while (Node1)
+	{
+		Node1->StateIndex=-1;
+		Node1->SelectedIndex=Node1->ImageIndex;
+		Node1->Expanded=true;
+		Node1 = Node1->GetNext();
+	}
+	Node1 = TreeView2->Items->GetFirstNode();
+	//int alli=0;
+	//int alll=0;
+	while (Node1)
+	{
+		Node1->StateIndex=-1;
+		Node1->SelectedIndex=Node1->ImageIndex;
+		Node1->Expanded=true;
+		Node1 = Node1->GetNext();
+	}
+	tabov *abov=new tabov();
+	Caption=abov->nameapp+" "+abov->version;
+
+	tsys *sys=new tsys;
+	sys->loadsys(ADOQuery1);
+	Form1->Left=sys->left;
+	Top=sys->top;
+	Width=sys->width;
+	Height=sys->height;
+	delete sys;
+	delete abov;
+
+	TADOQuery *ado=Form1->ADOQuery1;
+	ado->SQL->Clear();
+	UnicodeString query0="select * from func";
+	ado->SQL->Add(query0);
+	ado->Open();
+	ado->First();
+	while(!ado->Eof)
+	{
+				   func *fn=new func;
+				   UnicodeString cod=ado->FieldByName("shname")->AsAnsiString;
+				   UnicodeString capt=ado->FieldByName("fname")->AsAnsiString;
+
+				   fn->shname=cod;
+				   fn->name=capt;
+				   funclist.push_back(fn);
+				   ado->Next();
+	}
+    ado->Close();
+
+}
+//---------------------------------------------------------------------------

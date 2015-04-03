@@ -743,6 +743,15 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 	Form3->Left=Left+TreeView2->Left-10;
 	Form3->Top=Top;
 	Form3->functions="";
+	Form3->EditPort->Text="4899";
+	Form3->EditLogin->Text="";
+	Form3->EditPass->Text="";
+	Form3->EditDomen->Text="";
+	Form3->CheckBoxNoPing->Checked=false;
+	Form3->CheckBoxNoRadmin->Checked=false;
+	Form3->CheckBoxViaExpIP->Checked=false;
+	Form3->Wid="";
+
 	if(Form3->ShowModal()==mrOk)
 	{
 		telements *elm=new telements();
@@ -750,6 +759,7 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 		elm->chaildid="";
 		elm->tip=tip;
 		elm->name=Form3->EditFullName->Text;
+
 		TTreeNode *Node1;
 		if(!newnew)
 		{
@@ -763,10 +773,19 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 		}
 
 		tkomp *kmp=new tkomp();
+		kmp->fname=Form3->EditFullName->Text;
 		kmp->tip=elm->tip;
 		kmp->ip=Form3->EditIP->Text;
 		kmp->nname=Form3->EditName->Text;
 		kmp->naz="";
+		kmp->rport=Form3->EditPort->Text;
+		kmp->rlogin=Form3->EditLogin->Text;
+		kmp->rpass=Form3->EditPass->Text;
+		kmp->rdomen=Form3->EditDomen->Text;
+		kmp->noping=Form3->CheckBoxNoPing->Checked;
+		kmp->noradmin=Form3->CheckBoxNoRadmin->Checked;
+		kmp->viaexpip=Form3->CheckBoxViaExpIP->Checked;
+		kmp->rviaid=Form3->Wid;
 		kmp->Save(ADOQuery1);
 		elm->chaildid=kmp->id;
 		elm->Save(ADOQuery1);
@@ -786,6 +805,22 @@ void __fastcall TForm1::TreeView2MouseDown(TObject *Sender, TMouseButton Button,
 	if (Button == mbRight)
 	{
 		TreeView2->Selected = TreeView2->GetNodeAt(X, Y);
+		if(TreeView2->Selected==NULL)
+		{
+			NDelObject->ImageIndex=-1;
+			NEditObject->ImageIndex=-1;
+			NEditObject->Visible=false;
+			//NDelObject->=false;
+		}
+		else
+		{
+			int tip=((telements*)TreeView2->Selected->Data)->tip;
+			NDelObject->ImageIndex=tip+15;
+			NEditObject->ImageIndex=tip+10;
+			NEditObject->Visible=true;
+			//NDelObject->Visible=true;
+
+		}
 		PMObjects->Popup(TreeView2->Left + Left + X,TreeView2->Top + Top + Y);
 
 	}
@@ -845,7 +880,7 @@ void __fastcall TForm1::TreeView2DragDrop(TObject *Sender, TObject *Source, int 
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::N8Click(TObject *Sender)
+void __fastcall TForm1::NDelObjectClick(TObject *Sender)
 {
 	TTreeNode *Node1=TreeView2->Selected;
 	if(Node1==NULL) return;
@@ -876,7 +911,7 @@ void __fastcall TForm1::N8Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::N7Click(TObject *Sender)
+void __fastcall TForm1::NEditObjectClick(TObject *Sender)
 {
 	if(TreeView2->Selected==NULL) return;
 
@@ -897,14 +932,32 @@ void __fastcall TForm1::N7Click(TObject *Sender)
 		Form3->Left=Left+TreeView2->Left-10;
 		Form3->Top=Top;
 		Form3->functions=kmp->naz;
+		Form3->EditPort->Text=kmp->rport;
+		Form3->EditLogin->Text=kmp->rlogin;
+		Form3->EditPass->Text=kmp->rpass;
+		Form3->EditDomen->Text=kmp->rdomen;
+		Form3->CheckBoxNoPing->Checked=kmp->noping;
+		Form3->CheckBoxNoRadmin->Checked=kmp->noradmin;
+		Form3->CheckBoxViaExpIP->Checked=kmp->viaexpip;
+		Form3->Wid=kmp->rviaid;
 		if(Form3->ShowModal()==mrOk)
 		{
 			elm->name=Form3->EditFullName->Text;
 			TreeView2->Selected->Text=elm->name;
 			kmp->ip=Form3->EditIP->Text;
 			kmp->nname=Form3->EditName->Text;
+			kmp->fname=Form3->EditFullName->Text;
 			elm->Save(ADOQuery1);
 			kmp->naz=Form3->functions;
+
+			kmp->rport=Form3->EditPort->Text;
+			kmp->rlogin=Form3->EditLogin->Text;
+			kmp->rpass=Form3->EditPass->Text;
+			kmp->rdomen=Form3->EditDomen->Text;
+			kmp->noping=Form3->CheckBoxNoPing->Checked;
+			kmp->noradmin=Form3->CheckBoxNoRadmin->Checked;
+			kmp->viaexpip=Form3->CheckBoxViaExpIP->Checked;
+			kmp->rviaid=Form3->Wid;
 			kmp->Save(ADOQuery1);
 			delete kmp;
 		}

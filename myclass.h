@@ -62,9 +62,9 @@ class tkomp
 		void __fastcall Save(TADOQuery *ado);
 		void __fastcall Delete(TADOQuery *ado);
 
-		int tip;
+		int tip,noping,noradmin,viaexpip;
 		UnicodeString id,ip,naz,nname;
-		UnicodeString rport,rlogin,rpass,rdomen,rwid;
+		UnicodeString rport,rlogin,rpass,rdomen,rviaid,fname;
 		std::vector<QuikList> quicklist;
 
 
