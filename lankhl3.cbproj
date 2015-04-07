@@ -47,7 +47,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <SanitizedProjectName>lankhl3</SanitizedProjectName>
-        <AllPackageLibs>rtl.lib;vcl.lib;dbrtl.lib;adortl.lib;bindcomp.lib;bindengine.lib;bindcompvcl.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib;vclx.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;dbrtl.lib;adortl.lib;bindcomp.lib;bindengine.lib;bindcompvcl.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib;vclx.lib;vcldb.lib</AllPackageLibs>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <_TCHARMapping>wchar_t</_TCHARMapping>
@@ -106,7 +106,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_Keys>CompanyName=;FileDescription=для служебных нужд;FileVersion=1.0.0.2;InternalName=;LegalCopyright=Matskevich A.F.;LegalTrademarks=;OriginalFilename=;ProductName=LanKhl3;ProductVersion=1.0.0.1;Comments=</VerInfo_Keys>
-        <LinkPackageImports>rtl.bpi;vcl.bpi;dbrtl.bpi;adortl.bpi;bindcomp.bpi;bindengine.bpi;bindcompvcl.bpi;IndySystem.bpi;IndyProtocols.bpi;IndyCore.bpi;vclx.bpi</LinkPackageImports>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;dbrtl.bpi;adortl.bpi;bindcomp.bpi;bindengine.bpi;bindcompvcl.bpi;IndySystem.bpi;IndyProtocols.bpi;IndyCore.bpi;vclx.bpi;vcldb.bpi</LinkPackageImports>
         <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -123,6 +123,18 @@
         <CppCompile Include="abov.cpp">
             <DependentOn>abov.h</DependentOn>
             <BuildOrder>5</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="equip.cpp">
+            <Form>FormEquip</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>equip.h</DependentOn>
+            <BuildOrder>10</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="equiptip.cpp">
+            <Form>TipEquip</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>equiptip.h</DependentOn>
+            <BuildOrder>9</BuildOrder>
         </CppCompile>
         <CppCompile Include="groops.cpp">
             <Form>Form2</Form>
@@ -159,10 +171,12 @@
             <DependentOn>rvia.h</DependentOn>
             <BuildOrder>8</BuildOrder>
         </CppCompile>
-        <FormResources Include="mainform.dfm"/>
-        <FormResources Include="object.dfm"/>
-        <FormResources Include="groops.dfm"/>
         <FormResources Include="rvia.dfm"/>
+        <FormResources Include="object.dfm"/>
+        <FormResources Include="mainform.dfm"/>
+        <FormResources Include="groops.dfm"/>
+        <FormResources Include="equiptip.dfm"/>
+        <FormResources Include="equip.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

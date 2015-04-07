@@ -1,0 +1,35 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "equip.h"
+#include "mainform.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFormEquip *FormEquip;
+//---------------------------------------------------------------------------
+__fastcall TFormEquip::TFormEquip(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormEquip::FormShow(TObject *Sender)
+{
+	ADOTable1->Active=true;
+	ADOQuery1->Close();
+	ADOQuery1->SQL->Clear();
+	ADOQuery1->SQL->Add("select tipname from tipequip");
+	ADOQuery1->Open();
+	ADOQuery1->First();
+	DBGrid1->Columns->Items[0]->PickList->Clear();
+	while(!ADOQuery1->Eof)
+   {
+		DBGrid1->Columns->Items[1]->PickList->Add(ADOQuery1->FieldByName("tipname")->AsAnsiString);
+		ADOQuery1->Next();
+   }
+   ADOQuery1->Close();
+
+}
+//---------------------------------------------------------------------------

@@ -26,7 +26,6 @@ __published:	// IDE-managed Components
 	TImageList *ImageList1;
 	TImageList *ImageList2;
 	TTreeView *TreeView2;
-	TADOConnection *ADOConnection1;
 	TADOQuery *ADOQuery1;
 	TPopupMenu *PMGroops;
 	TMenuItem *N1;
@@ -50,6 +49,14 @@ __published:	// IDE-managed Components
 	TMenuItem *N11;
 	TMenuItem *N12;
 	TImageList *MenuIcon;
+	TTrayIcon *TrayIcon1;
+	TImageList *TryImageList;
+	TPopupMenu *PMTry;
+	TMenuItem *N7;
+	TMenuItem *N8;
+	TMenuItem *N13;
+	TMenuItem *N14;
+	TADOConnection *ADOConnection1;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall N1Click(TObject *Sender);
 	void __fastcall TreeView1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -72,6 +79,9 @@ __published:	// IDE-managed Components
 	void __fastcall NDelObjectClick(TObject *Sender);
 	void __fastcall NEditObjectClick(TObject *Sender);
 	void __fastcall TreeView2Click(TObject *Sender);
+	void __fastcall N7Click(TObject *Sender);
+	void __fastcall N13Click(TObject *Sender);
+	void __fastcall N14Click(TObject *Sender);
 
 
 

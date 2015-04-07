@@ -1,0 +1,25 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "equip.h"
+#include "mainform.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFormEquip *FormEquip;
+//---------------------------------------------------------------------------
+__fastcall TFormEquip::TFormEquip(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormEquip::FormShow(TObject *Sender)
+{
+	ADOTable1->Active=true;
+	DBGrid1->Columns->Items[0]->PickList->Add("1 dfdsfs")
+	DBGrid1->Columns->Items[0]->PickList->Add("3 dfdsfs")
+	DBGrid1->Columns->Items[0]->PickList->Add("2 dfdsfs")
+}
+//---------------------------------------------------------------------------

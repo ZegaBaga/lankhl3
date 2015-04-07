@@ -95,18 +95,8 @@ __published: // IDE-managed Components
 	TTabSheet *TabSheet5;
 	TCheckListBox *FuncCheckBox;
 	TTabSheet *TabSheet6;
-	TMemo *Dop;
-	TEdit *DataV;
-	TLabel *Label14;
-	TLabel *Label18;
-	TLabel *Label19;
-	TLabel *Label20;
-	TEdit *Inv;
-	TEdit *SN;
-	TSpeedButton *SpeedButton6;
-	TLabel *Label21;
 	TADOQuery *ADOQuery1;
-	TEdit *Model;
+	TListBox *ListBox2;
 
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);

@@ -9,6 +9,8 @@
 #include "myclass.h"
 #include "abov.h"
 #include "object.h"
+#include "equiptip.h"
+#include "equip.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -970,4 +972,25 @@ void __fastcall TForm1::NEditObjectClick(TObject *Sender)
 
 
 
+
+void __fastcall TForm1::N7Click(TObject *Sender)
+{
+	Close();
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::N13Click(TObject *Sender)
+{
+	TipEquip->Show();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::N14Click(TObject *Sender)
+{
+   FormEquip->Show();
+}
+//---------------------------------------------------------------------------
 
