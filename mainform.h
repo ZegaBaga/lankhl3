@@ -57,6 +57,9 @@ __published:	// IDE-managed Components
 	TMenuItem *N13;
 	TMenuItem *N14;
 	TADOConnection *ADOConnection1;
+	TMenuItem *N15;
+	TMainMenu *MainMenu1;
+	TMenuItem *N16;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall N1Click(TObject *Sender);
 	void __fastcall TreeView1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -82,6 +85,7 @@ __published:	// IDE-managed Components
 	void __fastcall N7Click(TObject *Sender);
 	void __fastcall N13Click(TObject *Sender);
 	void __fastcall N14Click(TObject *Sender);
+	void __fastcall N15Click(TObject *Sender);
 
 
 

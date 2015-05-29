@@ -1,0 +1,117 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "storageedit.h"
+#include "mainform.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFormStorageEdit *FormStorageEdit;
+//---------------------------------------------------------------------------
+__fastcall TFormStorageEdit::TFormStorageEdit(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormStorageEdit::FormShow(TObject *Sender)
+{
+   		 Label1->Caption="Тип оборудования";
+		 Label2->Caption="Название модели";
+		 Label3->Caption="Серийный №";
+		 Label1->Font->Color=clWindowText;
+		 Label2->Font->Color=clWindowText;
+		 Label3->Font->Color=clWindowText;
+
+   ADOQuery1->Close();
+   ADOQuery1->SQL->Clear();
+   ADOQuery1->SQL->Add("select * from tipequip order by tipname");
+   ADOQuery1->Open();
+   ADOQuery1->First();
+   ComboBox1->Clear();
+   while(!ADOQuery1->Eof)
+   {
+
+		   UnicodeString tipname=ADOQuery1->FieldByName("tipname")->AsAnsiString;
+		   ComboBox1->Items->Add(tipname);
+		   ADOQuery1->Next();
+   }
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormStorageEdit::ComboBox1Exit(TObject *Sender)
+{
+   ADOQuery1->Close();
+   ADOQuery1->SQL->Clear();
+   UnicodeString query=L"select * from equip";
+   if(!ComboBox1->Text.IsEmpty())
+		query+=L" where tip='"+ComboBox1->Text+"'";
+   query+=L" order by fname";
+   ADOQuery1->SQL->Add(query);
+   ADOQuery1->Open();
+   ADOQuery1->First();
+   ComboBox2->Clear();
+   while(!ADOQuery1->Eof)
+   {
+		   equips *equ=new equips;
+		   UnicodeString fname=ADOQuery1->FieldByName("fname")->AsAnsiString;
+		   UnicodeString tip=ADOQuery1->FieldByName("tip")->AsAnsiString;
+		   int cod=ADOQuery1->FieldByName("cod")->AsInteger;
+		   equ->name=fname;
+		   equ->tip=tip;
+		   equ->cod=cod;
+		   ComboBox2->Items->AddObject(fname,(TObject*)equ);
+		   ADOQuery1->Next();
+   }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormStorageEdit::BitBtn1Click(TObject *Sender)
+{
+		 Label1->Caption="Тип оборудования";
+		 Label2->Caption="Название модели";
+		 Label3->Caption="Серийный №";
+		 Label1->Font->Color=clWindowText;
+		 Label2->Font->Color=clWindowText;
+		 Label3->Font->Color=clWindowText;
+
+		 UnicodeString tipepuip=FormStorageEdit->ComboBox1->Text;
+		 UnicodeString fname=FormStorageEdit->ComboBox2->Text;
+		 UnicodeString snamber=FormStorageEdit->Edit2->Text;
+		 if(tipepuip.IsEmpty())
+		 {
+				Label1->Font->Color=clRed;
+				Label1->Caption="Тип оборудования не может быть пустым";
+				FormStorageEdit->ActiveControl=ComboBox1;
+				return;
+		 }
+		 if(fname.IsEmpty())
+		 {
+				Label2->Font->Color=clRed;
+				Label2->Caption="Название модели не может быть пустым";
+				FormStorageEdit->ActiveControl=ComboBox2;
+				return;
+		 }
+		 ADOQuery1->Close();
+		 ADOQuery1->SQL->Clear();
+		 ADOQuery1->SQL->Add("select * from storage where sn='"+snamber+"' and tipname='"+tipepuip+"' and equipname='"+fname+"'");
+		 ADOQuery1->Open();
+		 int count=ADOQuery1->RecordCount;
+		 ADOQuery1->Close();
+		 if(!count)
+		 {
+			Label3->Caption="Оборудование с таким № уже существует";
+			Label3->Font->Color=clRed;
+			FormStorageEdit->ActiveControl=Edit2;
+			return;
+		 }
+
+		 BitBtn1->ModalResult=mrOk;
+		 Close();
+
+}
+//---------------------------------------------------------------------------
+

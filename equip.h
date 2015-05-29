@@ -21,8 +21,15 @@ __published:	// IDE-managed Components
 	TDBNavigator *DBNavigator1;
 	TDataSource *DataSource1;
 	TADOTable *ADOTable1;
-	TADOQuery *ADOQuery1;
+	TWideStringField *ADOTable1fname;
+	TIntegerField *ADOTable1tip;
+	TADOTable *ADOTable2;
+	TStringField *ADOTable1lookup;
 	void __fastcall FormShow(TObject *Sender);
+	void __fastcall ADOTable1RecordChangeComplete(TCustomADODataSet *DataSet, const TEventReason Reason,
+          const int RecordCount, const Error *Error, TEventStatus &EventStatus);
+	void __fastcall ADOTable1CalcFields(TDataSet *DataSet);
+
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormEquip(TComponent* Owner);

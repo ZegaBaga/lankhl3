@@ -11,6 +11,7 @@
 #include "object.h"
 #include "equiptip.h"
 #include "equip.h"
+#include "storage.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -141,8 +142,7 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 				   funclist.push_back(fn);
 				   ado->Next();
 	}
-    ado->Close();
-
+	ado->Close();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::SQLChange(UnicodeString query0)
@@ -416,7 +416,8 @@ void __fastcall TForm1::TreeView1Click(TObject *Sender)
 UnicodeString __fastcall TForm1::GetFunctionLong(UnicodeString str)
 {
 		UnicodeString strret="";
-		for(int i=0;i<Form1->funclist.size();i++)
+		int count=funclist.size();
+		for(int i=0;i<count;i++)
 			{
 
 				   UnicodeString cod=Form1->funclist[i]->shname;
@@ -446,7 +447,7 @@ void __fastcall TForm1::TreeView2Click(TObject *Sender)
 	   RichEdit2->Lines->Add("Сетевое имя: "+kmp->nname);
 	   RichEdit2->Lines->Add("IP: "+kmp->ip);
 	   RichEdit2->Lines->Add("Назначение: "+naz);
-	   TColor orange=RGB(179,89,0);
+	   TColor orange=(TColor)RGB(179,89,0);
 	   int start=OutputDiscription2(0,"тип: ","АРМ",orange);
 	   start=OutputDiscription2(start+1,"Сетевое имя: ",kmp->nname,orange);
 	   start=OutputDiscription2(start+1,"IP: ",kmp->ip,orange);
@@ -468,7 +469,7 @@ void __fastcall TForm1::TreeView2Click(TObject *Sender)
 	   RichEdit2->Lines->Add("IP: "+kmp->ip);
 	   RichEdit2->Lines->Add("Назначение: "+naz);
 	   //RichEdit1->Lines->Add("Описание: "+elm->com);
-	   TColor orange=RGB(179,89,0);
+	   TColor orange=(TColor)RGB(179,89,0);
 	   int start=OutputDiscription2(0,"тип: ","Сервер",orange);
 	   start=OutputDiscription2(start+1,"Сетевое имя: ",kmp->nname,orange);
 	   start=OutputDiscription2(start+1,"IP: ",kmp->ip,orange);
@@ -577,7 +578,7 @@ void __fastcall TForm1::TreeView1DragDrop(TObject *Sender, TObject *Source, int 
 	if(Source == (TObject*)TreeView2)
 	{
 		THitTests HT = TreeView1->GetHitTestInfoAt(X, Y);
-		TNodeAttachMode AttachMode;
+	   //	TNodeAttachMode AttachMode;
 		TTreeNode *pItem = TreeView1->GetNodeAt(X, Y);
 		//groopid=((tgroops*)pItem->Data)->id;
 		//if(pItem==TreeView1->Selected) return;
@@ -586,20 +587,20 @@ void __fastcall TForm1::TreeView1DragDrop(TObject *Sender, TObject *Source, int 
 
 		if (HT.Contains(htOnItem) || HT.Contains(htOnIcon))
 		{
-			AttachMode = naAddChild;
+		  //	AttachMode = naAddChild;
 			grnew=(tgroops*)pItem->Data;
 			grold->groupid =grnew->id;
 			grold->parentid="";
 		}
 		else if (HT.Contains(htNowhere))
 		{
-			AttachMode = naAdd;
+		   //	AttachMode = naAdd;
 			grold->groupid = "";
 			grold->parentid="";
 		}
 		else if (HT.Contains(htOnIndent))
 		{
-			AttachMode = naInsert;
+		   //	AttachMode = naInsert;
 			grnew=(tgroops*)pItem->Data;
 			grold->groupid =grnew->parentid;
 		}
@@ -991,6 +992,12 @@ void __fastcall TForm1::N13Click(TObject *Sender)
 void __fastcall TForm1::N14Click(TObject *Sender)
 {
    FormEquip->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::N15Click(TObject *Sender)
+{
+	FormStorage->Show();
 }
 //---------------------------------------------------------------------------
 

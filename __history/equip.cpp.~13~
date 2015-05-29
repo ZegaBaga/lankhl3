@@ -1,0 +1,85 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "equip.h"
+#include "mainform.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TFormEquip *FormEquip;
+//---------------------------------------------------------------------------
+__fastcall TFormEquip::TFormEquip(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormEquip::FormShow(TObject *Sender)
+{
+	ADOTable1->Active=true;
+	ADOQuery1->Close();
+	ADOQuery1->SQL->Clear();
+	ADOQuery1->SQL->Add("select tipname from tipequip");
+	ADOQuery1->Open();
+	ADOQuery1->First();
+	DBGrid1->Columns->Items[0]->PickList->Clear();
+	while(!ADOQuery1->Eof)
+   {
+		DBGrid1->Columns->Items[1]->PickList->Add(ADOQuery1->FieldByName("tipname")->AsAnsiString);
+		ADOQuery1->Next();
+   }
+   ADOQuery1->Close();
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormEquip::ADOTable1RecordChangeComplete(TCustomADODataSet *DataSet,
+		  const TEventReason Reason, const int RecordCount, const Error *Error,
+		  TEventStatus &EventStatus)
+{
+
+  /*	UnicodeString rec1=DataSet->FieldByName("tip")->AsAnsiString;
+	ADOQuery1->Close();
+	ADOQuery1->SQL->Clear();
+	ADOQuery1->SQL->Add("select tipname from tipequip where tipname='"+rec1+"'");
+	ADOQuery1->Open();
+	if(!ADOQuery1->RecordCount)
+	{
+			ADOQuery1->SQL->Clear();
+			ADOQuery1->SQL->Add("insert into tipequip(tipname)values ('"+rec1+"')");
+			ADOQuery1->ExecSQL();
+			ADOQuery1->SQL->Clear();
+			ADOQuery1->SQL->Add("select tipname from tipequip");
+			ADOQuery1->Open();
+			ADOQuery1->First();
+			DBGrid1->Columns->Items[0]->PickList->Clear();
+			while(!ADOQuery1->Eof)
+		   {
+				DBGrid1->Columns->Items[1]->PickList->Add(ADOQuery1->FieldByName("tipname")->AsAnsiString);
+				ADOQuery1->Next();
+		   }
+
+   }
+   ADOQuery1->Close();
+
+	  */
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFormEquip::ADOTable1CalcFields(TDataSet *DataSet)
+{
+ ADOTable2->Active=true;
+ TLocateOptions Opts;
+ Opts.Clear();
+ Opts << loPartialKey;
+
+ if (ADOTable2->Locate("cod",ADOTable1->FieldByName("tip")->AsAnsiString,Opts))
+ {
+		ADOTable1->FieldByName("tipname")->AsAnsiString=ADOTable2->FieldByName("tipname")->AsAnsiString;
+ }
+// if AdotableTovar.Locate('KodTovar',AdotableKatTovar.fieldbyname('IdTovar' ).AsString,[loCaseInsensitive, loPartialKey])=true then
+// AdoTableKatTovar.Fieldbyname('CalcT ovar').AsString:=AdoTableTovar.Fiel dbyname('NameTovar').AsString;
+}
+//---------------------------------------------------------------------------
+

@@ -31,41 +31,65 @@ object FormEquip: TFormEquip
       item
         Expanded = False
         FieldName = 'fname'
+        Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         Width = 250
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'tip'
-        Width = 100
+        FieldName = 'lookup'
+        Title.Caption = #1058#1080#1087' '#1086#1073#1086#1088#1091#1076#1086#1074#1072#1085#1080#1103
         Visible = True
       end>
   end
   object DBNavigator1: TDBNavigator
     Left = 0
     Top = 264
-    Width = 240
+    Width = 216
     Height = 25
     DataSource = DataSource1
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbApplyUpdates]
     TabOrder = 1
   end
   object DataSource1: TDataSource
     DataSet = ADOTable1
-    Left = 180
-    Top = 76
+    Left = 256
+    Top = 140
   end
   object ADOTable1: TADOTable
-    Connection = Form1.ADOConnection1
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\Andrey\CPP\2015\' +
+      'LanKhl3\Win32\Debug\base.mdb;Persist Security Info=False'
     CursorLocation = clUseServer
-    CursorType = ctStatic
+    OnCalcFields = ADOTable1CalcFields
+    OnRecordChangeComplete = ADOTable1RecordChangeComplete
     TableName = 'equip'
-    Left = 68
-    Top = 140
+    Left = 332
+    Top = 112
+    object ADOTable1fname: TWideStringField
+      FieldName = 'fname'
+      Size = 255
+    end
+    object ADOTable1tip: TIntegerField
+      FieldName = 'tip'
+    end
+    object ADOTable1lookup: TStringField
+      FieldKind = fkLookup
+      FieldName = 'lookup'
+      LookupDataSet = ADOTable2
+      LookupKeyFields = 'cod'
+      LookupResultField = 'tipname'
+      KeyFields = 'tip'
+      Lookup = True
+    end
   end
-  object ADOQuery1: TADOQuery
-    Connection = Form1.ADOConnection1
-    Parameters = <>
-    Left = 240
-    Top = 140
+  object ADOTable2: TADOTable
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\Andrey\CPP\2015\' +
+      'LanKhl3\Win32\Debug\base.mdb;Persist Security Info=False'
+    CursorType = ctStatic
+    TableName = 'tipequip'
+    Left = 448
+    Top = 132
   end
 end

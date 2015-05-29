@@ -1,0 +1,40 @@
+//---------------------------------------------------------------------------
+
+#ifndef equipH
+#define equipH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+#include <Vcl.DBCtrls.hpp>
+#include <Vcl.DBGrids.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Grids.hpp>
+//---------------------------------------------------------------------------
+class TFormEquip : public TForm
+{
+__published:	// IDE-managed Components
+	TDBGrid *DBGrid1;
+	TDBNavigator *DBNavigator1;
+	TDataSource *DataSource1;
+	TADOTable *ADOTable1;
+	TADOQuery *ADOQuery1;
+	TStringField *ADOTable1tipname;
+	TADOTable *ADOTable2;
+	TIntegerField *ADOTable1tip;
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall ADOTable1RecordChangeComplete(TCustomADODataSet *DataSet, const TEventReason Reason,
+          const int RecordCount, const Error *Error, TEventStatus &EventStatus);
+	void __fastcall ADOTable1CalcFields(TDataSet *DataSet);
+
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFormEquip(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFormEquip *FormEquip;
+//---------------------------------------------------------------------------
+#endif

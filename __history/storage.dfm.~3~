@@ -1,0 +1,61 @@
+object FormStorage: TFormStorage
+  Left = 0
+  Top = 0
+  Caption = #1057#1082#1083#1072#1076
+  ClientHeight = 334
+  ClientWidth = 786
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object SpeedButton1: TSpeedButton
+    Left = 759
+    Top = 4
+    Width = 23
+    Height = 22
+    OnClick = SpeedButton1Click
+  end
+  object SpeedButton2: TSpeedButton
+    Left = 759
+    Top = 28
+    Width = 23
+    Height = 22
+  end
+  object SpeedButton3: TSpeedButton
+    Left = 759
+    Top = 64
+    Width = 23
+    Height = 22
+  end
+  object StringGrid1: TStringGrid
+    Left = 4
+    Top = 3
+    Width = 757
+    Height = 297
+    ColCount = 7
+    DefaultRowHeight = 18
+    TabOrder = 0
+  end
+  object BitBtn1: TBitBtn
+    Left = 707
+    Top = 306
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn1'
+    TabOrder = 1
+  end
+  object BitBtn2: TBitBtn
+    Left = 336
+    Top = 306
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn2'
+    TabOrder = 2
+  end
+end

@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#ifndef storageeditH
+#define storageeditH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.Buttons.hpp>
+//---------------------------------------------------------------------------
+class TFormStorageEdit : public TForm
+{
+__published:	// IDE-managed Components
+	TLabel *Label1;
+	TComboBox *ComboBox1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TEdit *Edit2;
+	TLabel *Label4;
+	TEdit *Edit3;
+	TLabel *Label5;
+	TEdit *Edit4;
+	TBitBtn *BitBtn1;
+	TBitBtn *BitBtn2;
+	TComboBox *ComboBox2;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TFormStorageEdit(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFormStorageEdit *FormStorageEdit;
+//---------------------------------------------------------------------------
+#endif
