@@ -6,7 +6,6 @@
 #include "storage.h"
 #include "storageedit.h"
 #include "mainform.h"
-#include "myclass.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -108,14 +107,10 @@ void __fastcall TFormStorage::FormShow(TObject *Sender)
        StringGrid1->Cells[i][1]="";
    ADOQuery1->Close();
    ADOQuery1->SQL->Clear();
-   if(idowner.IsEmpty())
-	   ADOQuery1->SQL->Add("select * from storage ");
-   else
-	   ADOQuery1->SQL->Add("select * from storage where idowner is null");
+   ADOQuery1->SQL->Add("select * from storage ");
    ADOQuery1->Open();
    ADOQuery1->First();
    int k=1;
-   telements *elm=new telements();
    while(!ADOQuery1->Eof)
    {
 
@@ -125,21 +120,11 @@ void __fastcall TFormStorage::FormShow(TObject *Sender)
 		StringGrid1->Cells[3][k]=ADOQuery1->FieldByName("sn")->AsAnsiString;
 		StringGrid1->Cells[4][k]=ADOQuery1->FieldByName("inv")->AsAnsiString;
 		StringGrid1->Cells[5][k]=ADOQuery1->FieldByName("daterelease")->AsAnsiString;
-		UnicodeString statusowner=ADOQuery1->FieldByName("idowner")->AsAnsiString;
-		if(statusowner.IsEmpty())
-			StringGrid1->Cells[6][k]="";
-		else
-		{
-			elm->id=statusowner;
-			elm->Load(ADOQuery2);
-			StringGrid1->Cells[6][k]=elm->name;
-		}
-
+		StringGrid1->Cells[6][k]="";
 		StringGrid1->Cells[7][k]=ADOQuery1->FieldByName("cod")->AsAnsiString;
 		k++;
 	   ADOQuery1->Next();
    }
-   delete elm;
    SpeedButton2->Enabled=(k>1 && StringGrid1->Row>0 && !StringGrid1->Cells[1][1].IsEmpty());
    SpeedButton3->Enabled=(k>1 && StringGrid1->Row>0 && !StringGrid1->Cells[1][1].IsEmpty());
 
@@ -224,12 +209,12 @@ void __fastcall TFormStorage::SpeedButton3Click(TObject *Sender)
 
 void __fastcall TFormStorage::BitBtn2Click(TObject *Sender)
 {
-/*		UnicodeString stringin="";
+		UnicodeString stringin="";
 		for(int i=1;i<StringGrid1->RowCount;i++)
 		{
 			if(StringGrid1->Cells[0][i]=="") continue;
 			UnicodeString cod=StringGrid1->Cells[7][i];
-			stringin+=(stringin.IsEmpty()?"":",")+cod;
+			stringin+=(i==1?"":",")+cod;
 		}
 		if(!stringin.IsEmpty())
 		{
@@ -242,7 +227,7 @@ void __fastcall TFormStorage::BitBtn2Click(TObject *Sender)
 		 ADOQuery1->ExecSQL();
 		 ADOQuery1->Close();
 		}
-  */
+
 }
 //---------------------------------------------------------------------------
 

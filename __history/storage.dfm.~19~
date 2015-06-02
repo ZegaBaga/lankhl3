@@ -75,11 +75,4 @@ object FormStorage: TFormStorage
     Left = 36
     Top = 200
   end
-  object ADOQuery2: TADOQuery
-    AutoCalcFields = False
-    Connection = Form1.ADOConnection1
-    Parameters = <>
-    Left = 108
-    Top = 204
-  end
 end

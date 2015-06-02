@@ -519,40 +519,19 @@ void __fastcall TForm3::SpeedButton5Click(TObject *Sender)
 {
 	TTreeNode *Node1;
 	Node1 = Form1->TreeView2->Selected;
-	if(Node1==NULL)
-	{
-		FormStorage->idowner="null";
-    }
-	else
-	{
-		telements *elm=(telements *)Node1->Data;
-		FormStorage->idowner=elm->id;
-	}
+	if(Node1==NULL) return;
 
+	telements *elm=(telements *)Node1->Data;
+
+
+	FormStorage->idowner=elm->id;
 	if(FormStorage->ShowModal()==mrOk)
 	{
 		for(int i=1;i<FormStorage->StringGrid1->RowCount;i++)
-		{
-			if(FormStorage->StringGrid1->Cells[0][i]=="") continue;
-			tarm *arm=new tarm;
-			arm->tip=FormStorage->StringGrid1->Cells[1][i];
-			arm->name=FormStorage->StringGrid1->Cells[2][i];
-			arm->sn=FormStorage->StringGrid1->Cells[3][i];
-			arm->inv=FormStorage->StringGrid1->Cells[4][i];
-			arm->dater=FormStorage->StringGrid1->Cells[5][i];
-			arm->cod=StrToInt(FormStorage->StringGrid1->Cells[7][i]);
-			//elm->armlist.push_back(arm);
-			ListBox2->AddItem(arm->tip+":"+arm->name,(TObject *)arm);
-		}
-		//Form1->armlist
+		tarm *arm=new tarm;
+		arm->tip=
+		Form1->armlist
 	}
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TForm3::ListBox2Click(TObject *Sender)
-{
-	tarm *arm=(tarm*)ListBox2->Items->Objects[ListBox2->ItemIndex];
-	Label6->Caption=arm->tip+":"+arm->name+" Сер.№"+arm->sn+" Инв.№"+arm->inv+" Дата "+arm->dater;
 }
 //---------------------------------------------------------------------------
 

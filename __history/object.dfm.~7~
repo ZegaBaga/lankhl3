@@ -440,7 +440,6 @@ object Form3: TForm3
         NumGlyphs = 2
         ParentShowHint = False
         ShowHint = True
-        OnClick = SpeedButton6Click
       end
       object Label6: TLabel
         Left = 0
@@ -448,7 +447,6 @@ object Form3: TForm3
         Width = 266
         Height = 39
         AutoSize = False
-        WordWrap = True
       end
       object ListBox2: TListBox
         Left = 0
@@ -977,7 +975,7 @@ object Form3: TForm3
     Left = 56
     Top = 204
     Bitmap = {
-      494C010106002800500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101060028004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000009A9A9AFFD1D1D1FFE1E1E1FFE1E1
       E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFBCBCE5FF6969

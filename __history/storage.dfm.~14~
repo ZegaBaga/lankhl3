@@ -44,10 +44,8 @@ object FormStorage: TFormStorage
     ColCount = 8
     DefaultRowHeight = 18
     RowCount = 2
-    Options = [goFixedHorzLine, goHorzLine, goRowSelect, goFixedColClick, goFixedRowClick]
+    Options = [goFixedHorzLine, goHorzLine, goRowSelect]
     TabOrder = 0
-    OnDrawCell = StringGrid1DrawCell
-    OnFixedCellClick = StringGrid1FixedCellClick
   end
   object BitBtn1: TBitBtn
     Left = 683
@@ -66,7 +64,6 @@ object FormStorage: TFormStorage
     Kind = bkOK
     NumGlyphs = 2
     TabOrder = 2
-    OnClick = BitBtn2Click
   end
   object ADOQuery1: TADOQuery
     AutoCalcFields = False
@@ -74,12 +71,5 @@ object FormStorage: TFormStorage
     Parameters = <>
     Left = 36
     Top = 200
-  end
-  object ADOQuery2: TADOQuery
-    AutoCalcFields = False
-    Connection = Form1.ADOConnection1
-    Parameters = <>
-    Left = 108
-    Top = 204
   end
 end

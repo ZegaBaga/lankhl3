@@ -43,12 +43,6 @@ public:
 	void Save(TADOQuery *ado);
 	void Delete(TADOQuery *ado);
 };
-struct tarm
-{
-	int cod;
-	UnicodeString tip,name,sn,inv,dater;
-};
-
 class telements
 {
 	public:
@@ -56,10 +50,7 @@ class telements
 		void __fastcall Load(TADOQuery *ado);
 		void __fastcall Save(TADOQuery *ado);
 		void __fastcall Delete(TADOQuery *ado);
-		std::vector <tarm*> armlist;
-		void __fastcall LoadArm(TADOQuery *ado);
-		void __fastcall SaveArm(TADOQuery *ado);
-		void __fastcall ClearArm();
+
 		int tip;
 		UnicodeString id,parentid,chaildid,groupid,name;
 };
@@ -77,6 +68,10 @@ class tkomp
 		std::vector<QuikList> quicklist;
 
 
+};
+struct tarm
+{
+	UnicodeString tip,name,sn,inv,dater;
 };
 UnicodeString GetShortPath(UnicodeString way);
 UnicodeString GetLongName(UnicodeString way);

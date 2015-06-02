@@ -141,37 +141,6 @@ void __fastcall telements::Load(TADOQuery *ado)
 	}
 	ado->Close();
 
-/*	UnicodeString query="select * from storage where idowner='"+id+"'";
-	ado->SQL->Clear();
-	ado->SQL->Add(query);
-	ado->Open();
-	ado->First();
-	while(!ado->Eof)
-	{
-			tarm *arm=new tarm;
-			arm->tip=ado->FieldByName("tipname")->AsAnsiString;
-			arm->name=ado->FieldByName("equipname")->AsAnsiString;
-			arm->sn=ado->FieldByName("sn")->AsAnsiString;
-			arm->inv=ado->FieldByName("inv")->AsAnsiString;
-			arm->dater=ado->FieldByName("daterelease")->AsAnsiString;
-			arm->cod=ado->FieldByName("cod")->AsInteger;
-			armlist.push_back(arm);
-			ado->Next();
-	}
-	ado->Close();
-  */
-
-
-}
-void __fastcall telements::LoadArm(TADOQuery *ado)
-{
-	for(int i=0;i<armlist.size();i++)
-	{
-		tarm *arm=armlist[i];
-		delete arm;
-	}
-	armlist.clear();
-
 	UnicodeString query="select * from storage where idowner='"+id+"'";
 	ado->SQL->Clear();
 	ado->SQL->Add(query);
@@ -190,39 +159,30 @@ void __fastcall telements::LoadArm(TADOQuery *ado)
 			ado->Next();
 	}
 	ado->Close();
-}
-void __fastcall telements::SaveArm(TADOQuery *ado)
-{
-	UnicodeString incode="";
-	for(int i=0;i<armlist.size();i++)
-		incode+=(i==0?" ":", ")+IntToStr(armlist[i]->cod);
 
-	UnicodeString query="update storage set idowner=null where idowner='"+id+"'";
+
+
+}
+void __fastcall telements::LoadArm(TADOQuery *ado)
+{
+	UnicodeString query="select * from storage where idowner='"+id+"'";
 	ado->SQL->Clear();
 	ado->SQL->Add(query);
-	ado->ExecSQL();
+	ado->Open();
+	ado->First();
+	while(!ado->Eof)
+	{
+			tarm *arm=new tarm;
+			arm->tip=ado->FieldByName("tipname")->AsAnsiString;
+			arm->name=ado->FieldByName("equipname")->AsAnsiString;
+			arm->sn=ado->FieldByName("sn")->AsAnsiString;
+			arm->inv=ado->FieldByName("inv")->AsAnsiString;
+			arm->dater=ado->FieldByName("daterelease")->AsAnsiString;
+			arm->cod=ado->FieldByName("cod")->AsInteger;
+			armlist.push_back(arm);
+			ado->Next();
+	}
 	ado->Close();
-	if(!incode.IsEmpty())
-	{
-		query="update storage set idowner='"+id+"' where cod in ("+incode+")";
-		ado->SQL->Clear();
-		ado->SQL->Add(query);
-		ado->ExecSQL();
-		ado->Close();
-	}
-
-
-
-}
-void __fastcall telements::ClearArm()
-{
-   /*	for(int i=0;i<armlist.size();i++)
-	{
-		tarm *arm=armlist[i];
-		delete arm;
-	}
-	*/
-	armlist.clear();
 }
 
 

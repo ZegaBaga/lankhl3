@@ -766,8 +766,8 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 	Form3->CheckBoxViaExpIP->Checked=false;
 	Form3->Wid="";
 
-	//for(int i=0;i<Form3->ListBox2->Count;i++)
-	  //		delete (tarm*)Form3->ListBox2->Items->Objects[i];
+	for(int i=0;i<Form3->ListBox2->Count;i++)
+			delete (tarm*)Form3->ListBox2->Items->Objects[i];
 	Form3->ListBox2->Clear();
 
 	if(Form3->ShowModal()==mrOk)

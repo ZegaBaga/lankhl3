@@ -519,16 +519,12 @@ void __fastcall TForm3::SpeedButton5Click(TObject *Sender)
 {
 	TTreeNode *Node1;
 	Node1 = Form1->TreeView2->Selected;
-	if(Node1==NULL)
-	{
-		FormStorage->idowner="null";
-    }
-	else
-	{
-		telements *elm=(telements *)Node1->Data;
-		FormStorage->idowner=elm->id;
-	}
+	if(Node1==NULL) return;
 
+	telements *elm=(telements *)Node1->Data;
+
+
+	FormStorage->idowner=elm->id;
 	if(FormStorage->ShowModal()==mrOk)
 	{
 		for(int i=1;i<FormStorage->StringGrid1->RowCount;i++)

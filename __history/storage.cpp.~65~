@@ -111,7 +111,7 @@ void __fastcall TFormStorage::FormShow(TObject *Sender)
    if(idowner.IsEmpty())
 	   ADOQuery1->SQL->Add("select * from storage ");
    else
-	   ADOQuery1->SQL->Add("select * from storage where idowner is null");
+	   ADOQuery1->SQL->Add("select * from storage where idowner=NULL");
    ADOQuery1->Open();
    ADOQuery1->First();
    int k=1;
@@ -224,7 +224,7 @@ void __fastcall TFormStorage::SpeedButton3Click(TObject *Sender)
 
 void __fastcall TFormStorage::BitBtn2Click(TObject *Sender)
 {
-/*		UnicodeString stringin="";
+		UnicodeString stringin="";
 		for(int i=1;i<StringGrid1->RowCount;i++)
 		{
 			if(StringGrid1->Cells[0][i]=="") continue;
@@ -242,7 +242,7 @@ void __fastcall TFormStorage::BitBtn2Click(TObject *Sender)
 		 ADOQuery1->ExecSQL();
 		 ADOQuery1->Close();
 		}
-  */
+
 }
 //---------------------------------------------------------------------------
 

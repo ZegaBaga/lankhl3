@@ -165,13 +165,7 @@ void __fastcall telements::Load(TADOQuery *ado)
 }
 void __fastcall telements::LoadArm(TADOQuery *ado)
 {
-	for(int i=0;i<armlist.size();i++)
-	{
-		tarm *arm=armlist[i];
-		delete arm;
-	}
-	armlist.clear();
-
+	ClearArm();
 	UnicodeString query="select * from storage where idowner='"+id+"'";
 	ado->SQL->Clear();
 	ado->SQL->Add(query);

@@ -107,6 +107,10 @@ object Form3: TForm3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1054#1089#1085#1086#1074#1085#1072#1103
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label4: TLabel
         Left = 0
         Top = 8
@@ -210,6 +214,10 @@ object Form3: TForm3
     object TabSheet3: TTabSheet
       Caption = 'RAdmin'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label3: TLabel
         Left = 3
         Top = 25
@@ -343,6 +351,10 @@ object Form3: TForm3
     object TabSheet6: TTabSheet
       Caption = #1058#1077#1093'. '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1103
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object SpeedButton5: TSpeedButton
         Left = 265
         Top = 3
@@ -440,29 +452,23 @@ object Form3: TForm3
         NumGlyphs = 2
         ParentShowHint = False
         ShowHint = True
-        OnClick = SpeedButton6Click
-      end
-      object Label6: TLabel
-        Left = 0
-        Top = 128
-        Width = 266
-        Height = 39
-        AutoSize = False
-        WordWrap = True
       end
       object ListBox2: TListBox
         Left = 0
         Top = 3
         Width = 266
-        Height = 122
+        Height = 162
         ItemHeight = 13
         TabOrder = 0
-        OnClick = ListBox2Click
       end
     end
     object TabSheet2: TTabSheet
       Caption = #1041#1099#1089#1090#1088#1099#1081' '#1079#1072#1087#1091#1089#1082
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object SpeedButton1: TSpeedButton
         Left = 263
         Top = 49
@@ -622,6 +628,10 @@ object Form3: TForm3
     object TabSheet4: TTabSheet
       Caption = #1054#1087#1086#1074#1077#1097#1077#1085#1080#1077
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GroupBox2: TGroupBox
         Left = 0
         Top = 0
@@ -859,6 +869,10 @@ object Form3: TForm3
     object TabSheet5: TTabSheet
       Caption = #1053#1072#1079#1085#1072#1095#1077#1085#1080#1077
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object FuncCheckBox: TCheckListBox
         Left = 0
         Top = 0
@@ -977,7 +991,7 @@ object Form3: TForm3
     Left = 56
     Top = 204
     Bitmap = {
-      494C010106002800500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101060028004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000009A9A9AFFD1D1D1FFE1E1E1FFE1E1
       E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFBCBCE5FF6969
@@ -1353,7 +1367,7 @@ object Form3: TForm3
   object ADOQuery1: TADOQuery
     Connection = Form1.ADOConnection1
     Parameters = <>
-    Left = 237
-    Top = 130
+    Left = 105
+    Top = 170
   end
 end

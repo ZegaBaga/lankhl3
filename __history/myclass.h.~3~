@@ -58,8 +58,6 @@ class telements
 		void __fastcall Delete(TADOQuery *ado);
 		std::vector <tarm*> armlist;
 		void __fastcall LoadArm(TADOQuery *ado);
-		void __fastcall SaveArm(TADOQuery *ado);
-		void __fastcall ClearArm();
 		int tip;
 		UnicodeString id,parentid,chaildid,groupid,name;
 };

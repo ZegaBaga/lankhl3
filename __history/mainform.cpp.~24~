@@ -766,8 +766,8 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 	Form3->CheckBoxViaExpIP->Checked=false;
 	Form3->Wid="";
 
-	//for(int i=0;i<Form3->ListBox2->Count;i++)
-	  //		delete (tarm*)Form3->ListBox2->Items->Objects[i];
+	for(int i=0;i<Form3->ListBox2->Count;i++)
+			delete (tarm*)Form3->ListBox2->Items->Objects[i];
 	Form3->ListBox2->Clear();
 
 	if(Form3->ShowModal()==mrOk)
@@ -807,10 +807,6 @@ void __fastcall TForm1::N9Click(TObject *Sender)
 		kmp->Save(ADOQuery1);
 		elm->chaildid=kmp->id;
 		elm->Save(ADOQuery1);
-		elm->ClearArm();
-		for(int i=0;i<Form3->ListBox2->Count;i++)
-			elm->armlist.push_back((tarm *)Form3->ListBox2->Items->Objects[i]);
-		elm->SaveArm(ADOQuery1);
 		delete kmp;
 		Node1->Data=(void*)elm;
 		Node1->Selected=true;

@@ -22,7 +22,6 @@ __published:	// IDE-managed Components
 	TBitBtn *BitBtn1;
 	TBitBtn *BitBtn2;
 	TADOQuery *ADOQuery1;
-	TADOQuery *ADOQuery2;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall SpeedButton1Click(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
@@ -32,13 +31,11 @@ __published:	// IDE-managed Components
 	void __fastcall BitBtn2Click(TObject *Sender);
 	void __fastcall StringGrid1DrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
           TGridDrawState State);
-	void __fastcall StringGrid1FixedCellClick(TObject *Sender, int ACol, int ARow);
-
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormStorage(TComponent* Owner);
 	void __fastcall NewEquipTip(UnicodeString tipname, UnicodeString fname);
-	UnicodeString idowner;
+	UnicodeSting idowner;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFormStorage *FormStorage;

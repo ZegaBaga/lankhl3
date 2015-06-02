@@ -106,7 +106,6 @@ public:		// User declarations
 	void __fastcall RindexObjects();
 	void __fastcall SetIconsOjects();
 	std::vector <func*> funclist;
-	std::vector <tarm*> armlist;
 	UnicodeString __fastcall GetFunctionLong(UnicodeString str);
 };
 //---------------------------------------------------------------------------

@@ -170,8 +170,7 @@ void __fastcall telements::LoadArm(TADOQuery *ado)
 		tarm *arm=armlist[i];
 		delete arm;
 	}
-	armlist.clear();
-
+    armlist.clear();
 	UnicodeString query="select * from storage where idowner='"+id+"'";
 	ado->SQL->Clear();
 	ado->SQL->Add(query);
@@ -197,32 +196,25 @@ void __fastcall telements::SaveArm(TADOQuery *ado)
 	for(int i=0;i<armlist.size();i++)
 		incode+=(i==0?" ":", ")+IntToStr(armlist[i]->cod);
 
-	UnicodeString query="update storage set idowner=null where idowner='"+id+"'";
+	UnicodeString query="update storage set idowner='' where idowner='"+id+"'";
 	ado->SQL->Clear();
 	ado->SQL->Add(query);
 	ado->ExecSQL();
 	ado->Close();
-	if(!incode.IsEmpty())
-	{
-		query="update storage set idowner='"+id+"' where cod in ("+incode+")";
-		ado->SQL->Clear();
-		ado->SQL->Add(query);
-		ado->ExecSQL();
-		ado->Close();
-	}
 
+	query="update storage set idowner='"+id+"' where cod in ("+incode+")";
+	ado->SQL->Clear();
+	ado->SQL->Add(query);
+	ado->ExecSQL();
+	ado->Close();
 
-
-}
-void __fastcall telements::ClearArm()
-{
-   /*	for(int i=0;i<armlist.size();i++)
+/*	for(int i=0;i<armlist.size();i++)
 	{
 		tarm *arm=armlist[i];
 		delete arm;
 	}
-	*/
 	armlist.clear();
+  */
 }
 
 

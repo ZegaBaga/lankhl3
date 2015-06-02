@@ -97,9 +97,6 @@ __published: // IDE-managed Components
 	TTabSheet *TabSheet6;
 	TADOQuery *ADOQuery1;
 	TListBox *ListBox2;
-	TSpeedButton *SpeedButton5;
-	TSpeedButton *SpeedButton6;
-	TLabel *Label6;
 
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -127,8 +124,6 @@ __published: // IDE-managed Components
 	void __fastcall FuncCheckBoxClickCheck(TObject *Sender);
 	void __fastcall ComboBoxEx1Change(TObject *Sender);
 	void __fastcall SpeedButton6Click(TObject *Sender);
-	void __fastcall SpeedButton5Click(TObject *Sender);
-	void __fastcall ListBox2Click(TObject *Sender);
 
 private: // User declarations
 

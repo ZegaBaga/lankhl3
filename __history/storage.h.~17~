@@ -22,7 +22,6 @@ __published:	// IDE-managed Components
 	TBitBtn *BitBtn1;
 	TBitBtn *BitBtn2;
 	TADOQuery *ADOQuery1;
-	TADOQuery *ADOQuery2;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall SpeedButton1Click(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
